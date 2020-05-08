@@ -17,11 +17,11 @@ void wifiInit(void)
 {
     WiFiManager wifiManager;
 
-    // IPAddress _ip = IPAddress(192, 168, 1, 22);     // device's ip (subject to change for ESP-01 v. NodeMCU)
-    // IPAddress _gw = IPAddress(192, 168, 1, 1);      // router ip
-    // IPAddress _sn = IPAddress(255, 255, 255, 0);    // subnet mask
+    IPAddress _ip = IPAddress(192, 168, 1, 25);     // device's ip
+    IPAddress _gw = IPAddress(192, 168, 1, 1);      // router ip
+    IPAddress _sn = IPAddress(255, 255, 255, 0);    // subnet mask
 
-    // wifiManager.setSTAStaticIPConfig(_ip, _gw, _sn);
+    wifiManager.setSTAStaticIPConfig(_ip, _gw, _sn);
 
     wifiManager.autoConnect();
 
@@ -35,6 +35,7 @@ void wifiInit(void)
 // initialize and start web server
 void serverInit(void)
 {
+    server.on("/", HTTP_GET, handleRoot);
     server.on("/StoveState", HTTP_GET, handleState);
     server.on("/StoveMotor", HTTP_POST, handleMotor);
 
