@@ -2,14 +2,19 @@
 
 #include "initialization.h"
 #include "serverHandlers.h"
+#include "stove.h"
 
 ESP8266WebServer server(255);    // Webserver object that listens for HTTP request on port 255
+stove Stove1(false);
 
 // initialize GPIO
 void gpioInit(void)
 {
     pinMode(SWITCH, INPUT);
-    pinMode(STOVE, OUTPUT);
+    pinMode(MOTOR, OUTPUT);
+
+    // when switch changes (value of GPIO0 changes), run switch_ISR
+    attachInterrupt(digitalPinToInterrupt(SWITCH), switch_ISR, CHANGE);
 }
 
 // initialize WiFi using WiFiManager
@@ -17,7 +22,14 @@ void wifiInit(void)
 {
     WiFiManager wifiManager;
 
+    #ifdef ESP01
     IPAddress _ip = IPAddress(192, 168, 1, 25);     // device's ip
+    #endif
+
+    #ifdef NODEMCU
+    IPAddress _ip = IPAddress(192, 168, 1, 22);     // device's ip
+    #endif
+
     IPAddress _gw = IPAddress(192, 168, 1, 1);      // router ip
     IPAddress _sn = IPAddress(255, 255, 255, 0);    // subnet mask
 
