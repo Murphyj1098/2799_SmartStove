@@ -38,31 +38,31 @@ void wifiInit(void)
 
     Serial.println('\n');
     Serial.print("Connected to ");
-    Serial.println(WiFi.SSID());              // Print SSID
+    Serial.println(WiFi.SSID());                            // Print SSID
     Serial.print("IP address:\t");
-    Serial.println(WiFi.localIP());           // Print IP Address of ESP8266
+    Serial.println(WiFi.localIP());                         // Print IP Address of ESP8266
 }
 
 // initialize and start web server
 void serverInit(void)
 {
-    server.on("/", HTTP_GET, handleRoot);
-    server.on("/StoveState", HTTP_GET, handleState);
-    server.on("/StoveMotor", HTTP_POST, handleMotor);
+    server.on("/", HTTP_GET, handleRoot);                   // Handle root page
+    server.on("/StoveState", HTTP_GET, handleState);        // Handle status GET
+    server.on("/StoveMotor", HTTP_POST, handleMotor);       // Handle motor POST
 
-    server.onNotFound([](){           // Handle unknown URIs
+    server.onNotFound([](){                                 // Handle unknown URIs
       server.send(404, "text/plain", "404: Not found");
       });
 
-    server.begin();                   // Start the server
+    server.begin();                                         // Start the server
 
     Serial.println("HTTP server started");
 }
 
-// called when switch changes state - updates state and turns off motor if on
+// called when switch changes state - updates state and turns off motor if its on
 ICACHE_RAM_ATTR void switch_ISR(void)
 {
-    stoveState = digitalRead(SWITCH);
-    if(!digitalRead(SWITCH))
-        analogWrite(MOTOR, 0);
+    stoveState = digitalRead(SWITCH);                       // Set stove state on switch state change          
+    if(!digitalRead(SWITCH))                                // if switch reads off (switch changed from off to on)
+        analogWrite(MOTOR, 0);                              // turn off motor
 }

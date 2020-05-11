@@ -13,10 +13,10 @@ void handleRoot(void)
 void handleState(void)
 {
     String state;
-    if(stoveState)
-        state = "on";
-    else if(!stoveState)
-        state = "off";
+    if(stoveState)              // if stove is on
+        state = "on";           // send on
+    else if(!stoveState)        // if stove is off
+        state = "off";          // send off
 
     server.send(200, "text/plain", state);
 }
@@ -24,8 +24,8 @@ void handleState(void)
 // on POST turns off the stove with motor (GPIO2)
 void handleMotor(void)
 {
-    server.send(200, "plain/text", "\0");
+    server.send(200, "plain/text", "\0");   // blank response
 
-    if(stoveState)                  // turn off stove
-        analogWrite(MOTOR, 512); 
+    if(stoveState)                          // if stove is on
+        analogWrite(MOTOR, 512);            // start motor
 }

@@ -16,5 +16,5 @@ void setup()
 
 void loop()
 {
-  server.handleClient();
+  server.handleClient();        // handle web server requests
 }
