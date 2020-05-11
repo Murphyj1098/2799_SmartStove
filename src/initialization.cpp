@@ -2,10 +2,9 @@
 
 #include "initialization.h"
 #include "serverHandlers.h"
-#include "stove.h"
 
 ESP8266WebServer server(255);    // Webserver object that listens for HTTP request on port 255
-stove Stove1(false);
+bool stoveState = false;
 
 // initialize GPIO
 void gpioInit(void)
@@ -58,4 +57,12 @@ void serverInit(void)
     server.begin();                   // Start the server
 
     Serial.println("HTTP server started");
+}
+
+// called when switch changes state - updates state and turns off motor if on
+ICACHE_RAM_ATTR void switch_ISR(void)
+{
+    stoveState = digitalRead(SWITCH);
+    if(!digitalRead(SWITCH))
+        analogWrite(MOTOR, 0);
 }

@@ -2,7 +2,6 @@
 
 #include "initialization.h"
 #include "serverHandlers.h"
-#include "stove.h"
 
 // reponds to GET request to root page
 void handleRoot(void)
@@ -14,9 +13,9 @@ void handleRoot(void)
 void handleState(void)
 {
     String state;
-    if(Stove1.getState())
+    if(stoveState)
         state = "on";
-    else if(!Stove1.getState())
+    else if(!stoveState)
         state = "off";
 
     server.send(200, "text/plain", state);
@@ -26,5 +25,7 @@ void handleState(void)
 void handleMotor(void)
 {
     server.send(200, "plain/text", "\0");
-    turnStove();        // Turn off stove
+
+    if(stoveState)                  // turn off stove
+        analogWrite(MOTOR, 512); 
 }

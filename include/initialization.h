@@ -5,8 +5,6 @@
 #include "ESP8266WebServer.h"
 #include "WiFiManager.h"
 
-#include "stove.h"
-
 /*constants*/
 
 #define NODEMCU
@@ -24,7 +22,7 @@
 
 /*shared global variables*/
 extern ESP8266WebServer server;     // Webserver object that listens for HTTP request on port 255
-extern stove Stove1;                // Stove object
+extern bool stoveState;             // Stove state
 
 /*function prototypes*/
 // initialize GPIO
@@ -35,5 +33,8 @@ void wifiInit(void);
 
 // initialize and start web server
 void serverInit(void);
+
+// called when switch changes state - updates state and turns off motor if on
+ICACHE_RAM_ATTR void switch_ISR(void);
 
 #endif
