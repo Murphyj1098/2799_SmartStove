@@ -17,7 +17,7 @@
 
 #ifdef NODEMCU
 #define MOTOR  D1    // GPIO pin -> Stove PWM
-#define SWITCH D5    // GPIO pin -> Switch State
+#define SWITCH D4    // GPIO pin -> Switch State
 #endif
 
 /*shared global variables*/
