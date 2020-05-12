@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <Server.h>
 
 #include "initialization.h"
 #include "serverHandlers.h"
@@ -27,5 +28,6 @@ void handleMotor(void)
     server.send(200, "plain/text", "\0");   // blank response
 
     if(stoveState)                          // if stove is on
-        analogWrite(MOTOR, 512);            // start motor
+        analogWriteFreq(50);
+        analogWrite(MOTOR, 51);            // start motor
 }
