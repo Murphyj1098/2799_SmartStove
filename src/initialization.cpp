@@ -22,15 +22,15 @@ void wifiInit(void)
     WiFiManager wifiManager;
 
     #ifdef ESP01
-    IPAddress _ip = IPAddress(192, 168, 1, 25);         // device's ip
+    IPAddress _ip = IPAddress(*);         // device's ip
     #endif
 
     #ifdef NODEMCU
-    IPAddress _ip = IPAddress(192, 168, 1, 22);         // device's ip
+    IPAddress _ip = IPAddress(*);         // device's ip
     #endif
 
-    IPAddress _gw = IPAddress(192, 168, 1, 1);          // router ip
-    IPAddress _sn = IPAddress(255, 255, 255, 0);        // subnet mask
+    IPAddress _gw = IPAddress(*);          // router ip
+    IPAddress _sn = IPAddress(*);        // subnet mask
 
     wifiManager.setSTAStaticIPConfig(_ip, _gw, _sn);    // set static ip, router ip, and subnet mask
 
