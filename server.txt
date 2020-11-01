@@ -4,10 +4,10 @@ HTTP Info:
     GET     - a request to the server that should only receive data from the server, no other effects
     POST    - a request to the server asking the server to accept data in the post request
 
-ESP Web Server Address: "http://192.168.1.22:255"
-Our network Address:    "http://24.107.226.114:255"
+ESP Web Server Address: "http://***.***.*.22:255"
+Our network Address:    "http://**.***.***.114:255"
 
-http://24.107.226.114:255/StoveState
+http://**.***.***.114:255/StoveState
 
     GET request
 
@@ -19,7 +19,7 @@ http://24.107.226.114:255/StoveState
     "on" and "off" strings can be used as boolean for any control logic
 
 
-http://24.107.226.114:255/StoveMotor
+http://**.***.***.114:255/StoveMotor
 
     POST request
 
